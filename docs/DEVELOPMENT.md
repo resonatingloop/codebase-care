@@ -52,14 +52,25 @@ python3 scripts/classify_change.py --paths supabase/migrations/001_auth.sql
 
 ## Test interactively
 
-### VS Code marketplace path
+### Claude Desktop marketplace path
 
 After the target revision is available on GitHub:
 
-1. Open the Claude Code panel in a disposable VS Code project.
-2. Type `/plugins` and add `resonatingloop/codebase-care` under Marketplaces.
-3. Install Codebase Care locally or for the test user.
-4. Reload plugins and run the orientation smoke test from `docs/USER_GUIDE.md`.
+1. Open the Claude Desktop **Code** tab and start a local session in a
+   disposable project.
+2. Select **+ → Plugins → Manage plugins** and check whether the user-scope VS
+   Code installation is already visible.
+3. If it is absent, select **+ → Plugins → Add plugin** and find Codebase Care
+   in the configured `resonatingloop` marketplace.
+4. Install it for the test user.
+5. If the marketplace is missing, register it once from a terminal Claude Code
+   session with `/plugin marketplace add resonatingloop/codebase-care`, then
+   return to Desktop.
+6. Run the orientation smoke test from `docs/USER_GUIDE.md`.
+
+The owner has separately observed successful marketplace discovery and
+installation through the VS Code extension on Windows. That result does not
+prove Desktop loading or skill invocation.
 
 ### Local clone path
 
@@ -90,8 +101,8 @@ Before the next public release:
 
 1. Obtain an explicit license decision.
 2. Run all validation and private-content review.
-3. Forward-test the VS Code marketplace install and reload path on native
-   Windows.
+3. Forward-test the Claude Desktop marketplace install and skill invocation
+   path in a local Code session on native Windows.
 4. Forward-test behavior on native Windows and a POSIX system against fresh
    disposable repositories without leaking expected answers into the prompts.
 5. Confirm the intended branch and GitHub remote before pushing it.

@@ -40,25 +40,44 @@ operate production systems, or make a model version into a safety boundary.
 
 ## Start here
 
-The [Codebase Care user guide](docs/USER_GUIDE.md) walks a Claude Code user
-through installing the plugin in VS Code, opening the correct project, running
-a five-disposition baseline, requesting ordinary changes, performing a
-read-only security audit, and remediating one named red finding at a time. The
-terminal path is retained for plugin development and unpublished local testing.
+The [Codebase Care user guide](docs/USER_GUIDE.md) starts in the Claude Desktop
+Code tab, then distinguishes the terminal CLI and VS Code alternatives. It
+covers opening the correct project, running a five-disposition
+baseline, requesting ordinary changes, performing a read-only security audit,
+and remediating one named red finding at a time.
 
-## Install in VS Code
+## Install in Claude Desktop
 
-1. Open the project you want Claude to work on in VS Code.
-2. Open the Claude Code panel and type `/plugins`.
-3. In **Marketplaces**, add `resonatingloop/codebase-care`.
-4. In **Plugins**, install **Codebase Care** for your user account.
-5. Restart Claude Code or type `/reload-plugins`.
+1. Open Claude Desktop and select the **Code** tab.
+2. Start a local session in the project you want to maintain.
+3. Click **+** beside the prompt box.
+4. Select **Plugins → Manage plugins** and check whether **Codebase Care** is
+   already present from the user-scope VS Code installation.
+5. If it is absent, select **Plugins → Add plugin**.
+6. Find **Codebase Care** in the `resonatingloop` marketplace and install it at
+   user scope.
+
+Do not use the ordinary Chat or Cowork surface for this setup. The marketplace
+plugin belongs to a local or SSH session in the **Code** tab.
+
+If Desktop does not show the `resonatingloop` marketplace, add it once through
+Claude Code's terminal interface. Start `claude`, then enter these at Claude's
+prompt, one at a time:
+
+```text
+/plugin marketplace add resonatingloop/codebase-care
+/plugin install codebase-care@resonatingloop
+/reload-plugins
+```
+
+These are Claude slash commands, not Windows Command Prompt, PowerShell, bash,
+or zsh commands. The [user guide](docs/USER_GUIDE.md) gives the exact Desktop
+route, a terminal fallback, and the already-tested VS Code route.
 
 The plugin contributes `/codebase-care:maintain-codebase`. Its skill remains
 model-invocable, and a minimal SessionStart hook reminds Claude to enter the
-lifecycle automatically for repository-changing requests. See the
-[user guide](docs/USER_GUIDE.md) for the orientation smoke test and working
-prompts.
+lifecycle automatically for repository-changing requests. See the user guide
+for the orientation smoke test and working prompts.
 
 ## Try an unpublished clone locally
 

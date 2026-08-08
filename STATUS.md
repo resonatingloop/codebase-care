@@ -10,7 +10,8 @@ Codebase Care now contains a Claude-native plugin with one model-invocable
 `maintain-codebase` skill, a minimal non-mutating and interpreter-free
 SessionStart instruction, progressively loaded lifecycle references, and a
 dependency-free advisory change classifier. A GitHub-backed marketplace catalog
-exposes the plugin to the Claude Code extension's VS Code plugin manager.
+exposes the plugin to Claude Code's plugin managers. Claude Desktop's Code tab
+is now the primary documented user surface.
 
 Observed validation:
 
@@ -33,7 +34,9 @@ Results:
 - The SessionStart hook contains only the intended static, non-mutating entry
   instruction and has no interpreter or plugin-path dependency.
 - The marketplace and plugin manifests validate together and declare matching
-  version `0.2.0` metadata.
+  version `0.2.1` metadata.
+- The owner observed successful marketplace discovery and installation in the
+  Claude Code VS Code extension on Windows.
 
 ## Working now
 
@@ -44,20 +47,23 @@ Results:
 - Concise proof and uncertainty handoff.
 - Advisory detection of representative runtime, database, auth, dynamic-code,
   and HTML-sink change signals.
-- A VS Code-first user guide for marketplace installation, baseline review,
-  ordinary changes, red audits, named red fixes, updating, and troubleshooting.
-- CLI loading retained as a development and unpublished-testing path.
+- A Claude Desktop-first user guide for marketplace installation, baseline
+  review, ordinary changes, red audits, named red fixes, updating, and
+  troubleshooting.
+- Terminal CLI registration and local loading retained as fallback and
+  development paths; VS Code is retained as a tested alternative surface.
 - A public GitHub source repository tracking `origin/master`.
 
 ## Incomplete or unverified
 
 - Automatic invocation has not been forward-tested in a fresh disposable Claude
   session against a target repository.
-- Marketplace discovery, install, reload, and hook execution have not yet been
-  forward-tested in the VS Code extension on a Windows machine.
+- Marketplace discovery and installation succeeded in the VS Code extension on
+  Windows, but reload and hook execution have not yet been owner-verified.
+- Marketplace discovery, installation, and skill invocation have not yet been
+  forward-tested in a local Claude Desktop Code session on Windows.
 - Red routing has not been exercised against a sanitized end-to-end audit
   fixture.
-- The new marketplace path has not yet been installed outside validation.
 - No license has been selected.
 
 ## Explicitly excluded
@@ -67,9 +73,11 @@ Results:
 
 ## Next useful action
 
-After version 0.2.0 is pushed, have a Windows VS Code user add
-`resonatingloop/codebase-care` through `/plugins`, install Codebase Care for
-their user account, reload, and run the orientation smoke test. Then
-forward-test one ordinary change, one baseline audit, and one red audit against
-fresh disposable fixtures. Select a license before treating the GitHub
-repository as a finished public distribution.
+After version 0.2.1 is pushed, open a local Claude Desktop Code session on
+Windows in a disposable repository. Check **+ → Plugins → Manage plugins**, use
+**Add plugin** if needed, and run the orientation smoke test. If the
+`resonatingloop` marketplace is not visible, register it once through the
+terminal CLI and retry Desktop. Then forward-test one ordinary change, one
+baseline audit, and one red audit against fresh disposable fixtures. Select a
+license before treating the GitHub repository as a finished public
+distribution.

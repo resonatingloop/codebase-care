@@ -1,7 +1,7 @@
 {
   "name": "codebase-care",
   "displayName": "Codebase Care",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Automatically orient, risk-route, verify, and explain changes to existing codebases.",
   "author": {
     "name": "resonatingloop"
