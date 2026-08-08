@@ -37,11 +37,11 @@ Then load only the route required:
 
 ## Use deterministic signals correctly
 
-When a diff exists, run the bundled classifier if Python is available:
-
-```text
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/classify_change.py" --repo .
-```
+When a diff exists, run the bundled `scripts/classify_change.py --repo .`
+classifier if Python 3 is available. Resolve it from the active plugin root and
+use the launcher available on the current platform: commonly `py -3` on native
+Windows or `python3`/`python` elsewhere. Do not assume one launcher name exists
+everywhere.
 
 Treat its result as an advisory risk floor. It may reveal a reason to escalate.
 It cannot certify safety, establish exploitability, or lower a contextual risk
@@ -63,4 +63,3 @@ At the end, report only:
 
 Do not bury uncertainty in a long implementation narrative. Do not call work
 secure, complete, or verified beyond the evidence collected.
-

@@ -22,7 +22,7 @@ Claude Code session
 | Component | Path | Responsibility |
 |---|---|---|
 | Plugin manifest | `.claude-plugin/plugin.json` | identity and Claude component paths |
-| Automatic context hook | `hooks/hooks.json`, `scripts/session_context.py` | remind Claude to enter the lifecycle without user prompting |
+| Automatic context hook | `hooks/hooks.json` | emit a static, shell-neutral reminder to enter the lifecycle without user prompting |
 | Skill router | `skills/maintain-codebase/SKILL.md` | authorization, operation selection, risk escalation, finish contract |
 | Detailed procedures | `skills/maintain-codebase/references/` | lifecycle, risk, baseline, red work, and verification |
 | Advisory classifier | `scripts/classify_change.py` | deterministic path/diff signals and risk floor |
@@ -32,7 +32,7 @@ Claude Code session
 ## Boundaries
 
 - The hook contributes context but performs no target-repository inspection or
-  mutation.
+  mutation and requires no language interpreter.
 - The skill makes contextual judgments; deterministic scripts only report
   structured signals.
 - Target repositories own their behavior, tests, documentation, and findings.
@@ -40,4 +40,3 @@ Claude Code session
   implement a fix but cannot certify its own deployment.
 - Plugin source remains generic; no motivating repository is encoded as a
   fixture or example.
-

@@ -50,6 +50,9 @@ python3 scripts/check_package.py .
 claude plugin validate .
 ```
 
+On native Windows, use `py -3` in place of `python3` and Windows path
+separators where needed.
+
 Also inspect `git diff --check` and repository status after version control is
 initialized.
 
@@ -69,4 +72,3 @@ initialized.
 - A fixture would contain project-specific or private material.
 - Publishing, licensing, remote assignment, or live-system interaction is
   required.
-

@@ -44,14 +44,21 @@ The [Codebase Care user guide](docs/USER_GUIDE.md) walks a Claude Code user
 through cloning and validating the plugin, starting it inside the correct
 project, running a five-disposition baseline, requesting ordinary changes,
 performing a read-only security audit, and remediating one named red finding at
-a time.
+a time. Windows Command Prompt is documented first, with macOS and Linux
+equivalents kept separate.
 
 The current V1 loads with `--plugin-dir` for each Claude session. It has not yet
 been packaged as a permanent marketplace installation.
 
 ## Try the plugin locally
 
-From the parent directory:
+From the parent directory on Windows Command Prompt:
+
+```text
+claude --plugin-dir .\codebase-care
+```
+
+From the parent directory on macOS or Linux:
 
 ```text
 claude --plugin-dir ./codebase-care
@@ -61,7 +68,16 @@ The plugin contributes `/codebase-care:maintain-codebase`. Its skill remains
 model-invocable, and a minimal SessionStart hook reminds Claude to enter the
 lifecycle automatically for repository-changing requests.
 
-Validate the package without starting a working session:
+Validate the package without starting a working session on Windows Command
+Prompt:
+
+```text
+claude plugin validate .
+py -3 -m unittest discover -s tests -v
+py -3 scripts\check_package.py .
+```
+
+On macOS or Linux:
 
 ```text
 claude plugin validate .
@@ -102,6 +118,6 @@ The canonical source contains only generic workflows, scripts, and sanitized
 tests. Audit reports and project-specific inventories stay with their source
 repositories.
 
-No license has been selected for this new project, and no Git repository or
-remote has been initialized by this build. Resolve those owner decisions before
-public distribution.
+The source now has a Git repository and a public
+[GitHub remote](https://github.com/resonatingloop/codebase-care). No license has
+been selected; license terms remain an unresolved owner decision.

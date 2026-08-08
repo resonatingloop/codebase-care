@@ -14,7 +14,6 @@ from typing import Sequence
 REQUIRED_FILES = (
     ".claude-plugin/plugin.json",
     "hooks/hooks.json",
-    "scripts/session_context.py",
     "scripts/classify_change.py",
     "skills/maintain-codebase/SKILL.md",
     "skills/maintain-codebase/references/lifecycle.md",
@@ -67,8 +66,21 @@ def check_package(root: Path) -> list[str]:
             continue
         if label == "plugin manifest" and parsed.get("name") != "codebase-care":
             errors.append("plugin manifest name must be codebase-care")
-        if label == "hooks" and "SessionStart" not in parsed.get("hooks", {}):
-            errors.append("hooks configuration must define SessionStart")
+        if label == "hooks":
+            session_start = parsed.get("hooks", {}).get("SessionStart")
+            if not session_start:
+                errors.append("hooks configuration must define SessionStart")
+                continue
+            try:
+                handler = session_start[0]["hooks"][0]
+            except (IndexError, KeyError, TypeError):
+                errors.append("SessionStart must contain a hook handler")
+                continue
+            command = handler.get("command", "")
+            if handler.get("type") != "command" or not command.startswith("echo "):
+                errors.append("SessionStart must emit static context with a shell-neutral echo")
+            if "python" in command.casefold() or "CLAUDE_PLUGIN_ROOT" in command:
+                errors.append("SessionStart context must not depend on an interpreter or path")
 
     skill_path = root / "skills/maintain-codebase/SKILL.md"
     if skill_path.is_file():

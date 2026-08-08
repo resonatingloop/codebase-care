@@ -7,9 +7,9 @@
 ## Verified checkpoint
 
 Codebase Care now contains a Claude-native plugin with one model-invocable
-`maintain-codebase` skill, a minimal non-mutating SessionStart instruction,
-progressively loaded lifecycle references, and a dependency-free advisory
-change classifier.
+`maintain-codebase` skill, a minimal non-mutating and interpreter-free
+SessionStart instruction, progressively loaded lifecycle references, and a
+dependency-free advisory change classifier.
 
 Observed validation:
 
@@ -18,7 +18,6 @@ python3 -m unittest discover -s tests -v
 python3 scripts/check_package.py .
 claude plugin validate .
 python3 <skill-creator>/scripts/quick_validate.py skills/maintain-codebase
-python3 scripts/session_context.py
 ```
 
 Results:
@@ -30,7 +29,8 @@ Results:
 - The skill validator reported `Skill is valid!`.
 - Green, amber, and red representative classifier runs returned the expected
   floors.
-- The startup script emitted only the intended non-mutating entry instruction.
+- The SessionStart hook contains only the intended static, non-mutating entry
+  instruction and has no interpreter or plugin-path dependency.
 
 ## Working now
 
@@ -41,26 +41,31 @@ Results:
 - Concise proof and uncertainty handoff.
 - Advisory detection of representative runtime, database, auth, dynamic-code,
   and HTML-sink change signals.
-- A step-by-step user guide for local loading, baseline review, ordinary
-  changes, red audits, named red fixes, updating, and troubleshooting.
+- A Windows Command Prompt-first user guide for local loading, baseline review,
+  ordinary changes, red audits, named red fixes, updating, and troubleshooting,
+  with separate macOS/Linux commands.
+- A public GitHub source repository tracking `origin/master`.
 
 ## Incomplete or unverified
 
 - Automatic invocation has not been forward-tested in a fresh disposable Claude
   session against a target repository.
+- Native Windows Command Prompt launch and hook execution have not yet been
+  forward-tested on a Windows machine.
 - Red routing has not been exercised against a sanitized end-to-end audit
   fixture.
 - The plugin has not been installed outside `--plugin-dir` development use.
-- No license, Git repository, or remote exists for this child yet.
+- No license has been selected.
 
 ## Explicitly excluded
 
-- Git initialization, remote assignment, publication, and license selection.
+- License selection and permanent marketplace packaging or installation.
 - Installation into a user or target-project Claude configuration.
 - Any modification of the repositories that motivated this skill.
 
 ## Next useful action
 
-Forward-test one ordinary change, one baseline audit, and one red audit against
-fresh disposable fixtures. Then choose a license and authorize Git/GitHub
-publication if the behavior is acceptable.
+Have a Windows CMD user pull version 0.1.1 and run the orientation smoke test,
+then forward-test one ordinary change, one baseline audit, and one red audit
+against fresh disposable fixtures. Select a license before treating the GitHub
+repository as a finished public distribution.

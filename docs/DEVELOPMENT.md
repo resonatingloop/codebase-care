@@ -8,11 +8,23 @@
 - Python 3.10 or newer for deterministic scripts and tests.
 - Claude Code with plugin validation support.
 
-No third-party runtime dependency is required.
+The SessionStart hook has no language-runtime dependency. Python is needed only
+for deterministic scripts and their tests; no third-party Python package is
+required.
 
 ## Validate
 
 From the repository root:
+
+Windows Command Prompt:
+
+```text
+py -3 -m unittest discover -s tests -v
+py -3 scripts\check_package.py .
+claude plugin validate .
+```
+
+macOS or Linux:
 
 ```text
 python3 -m unittest discover -s tests -v
@@ -21,6 +33,16 @@ claude plugin validate .
 ```
 
 Exercise representative classifier paths:
+
+Windows Command Prompt uses `py -3` and backslashes; for example:
+
+```text
+py -3 scripts\classify_change.py --paths README.md styles\site.css
+py -3 scripts\classify_change.py --paths src\profile.js
+py -3 scripts\classify_change.py --paths supabase\migrations\001_auth.sql
+```
+
+On macOS or Linux:
 
 ```text
 python3 scripts/classify_change.py --paths README.md styles/site.css
@@ -31,6 +53,14 @@ python3 scripts/classify_change.py --paths supabase/migrations/001_auth.sql
 ## Test interactively
 
 From the parent directory:
+
+Windows Command Prompt:
+
+```text
+claude --plugin-dir .\codebase-care
+```
+
+macOS or Linux:
 
 ```text
 claude --plugin-dir ./codebase-care
@@ -43,14 +73,12 @@ floor, runs appropriate proof, and does not manufacture a documentation system.
 For red-work testing, use sanitized synthetic fixtures. Never point a test at a
 live service or include real credentials.
 
-## Publication gate
+## Next release gate
 
-Before public release:
+Before the next public release:
 
 1. Obtain an explicit license decision.
-2. Initialize version control only with owner authorization.
-3. Run all validation and private-content review.
-4. Forward-test against fresh disposable repositories without leaking expected
-   answers into the prompts.
-5. Confirm the intended remote before assigning or pushing it.
-
+2. Run all validation and private-content review.
+3. Forward-test on native Windows and a POSIX system against fresh disposable
+   repositories without leaking expected answers into the prompts.
+4. Confirm the intended branch and GitHub remote before pushing it.
