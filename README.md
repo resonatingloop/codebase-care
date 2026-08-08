@@ -41,32 +41,38 @@ operate production systems, or make a model version into a safety boundary.
 ## Start here
 
 The [Codebase Care user guide](docs/USER_GUIDE.md) walks a Claude Code user
-through cloning and validating the plugin, starting it inside the correct
-project, running a five-disposition baseline, requesting ordinary changes,
-performing a read-only security audit, and remediating one named red finding at
-a time. Windows Command Prompt is documented first, with macOS and Linux
-equivalents kept separate.
+through installing the plugin in VS Code, opening the correct project, running
+a five-disposition baseline, requesting ordinary changes, performing a
+read-only security audit, and remediating one named red finding at a time. The
+terminal path is retained for plugin development and unpublished local testing.
 
-The current V1 loads with `--plugin-dir` for each Claude session. It has not yet
-been packaged as a permanent marketplace installation.
+## Install in VS Code
 
-## Try the plugin locally
+1. Open the project you want Claude to work on in VS Code.
+2. Open the Claude Code panel and type `/plugins`.
+3. In **Marketplaces**, add `resonatingloop/codebase-care`.
+4. In **Plugins**, install **Codebase Care** for your user account.
+5. Restart Claude Code or type `/reload-plugins`.
 
-From the parent directory on Windows Command Prompt:
+The plugin contributes `/codebase-care:maintain-codebase`. Its skill remains
+model-invocable, and a minimal SessionStart hook reminds Claude to enter the
+lifecycle automatically for repository-changing requests. See the
+[user guide](docs/USER_GUIDE.md) for the orientation smoke test and working
+prompts.
+
+## Try an unpublished clone locally
+
+From the clone's parent directory on Windows Command Prompt:
 
 ```text
 claude --plugin-dir .\codebase-care
 ```
 
-From the parent directory on macOS or Linux:
+From the clone's parent directory on macOS or Linux:
 
 ```text
 claude --plugin-dir ./codebase-care
 ```
-
-The plugin contributes `/codebase-care:maintain-codebase`. Its skill remains
-model-invocable, and a minimal SessionStart hook reminds Claude to enter the
-lifecycle automatically for repository-changing requests.
 
 Validate the package without starting a working session on Windows Command
 Prompt:

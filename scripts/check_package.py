@@ -13,6 +13,7 @@ from typing import Sequence
 
 REQUIRED_FILES = (
     ".claude-plugin/plugin.json",
+    ".claude-plugin/marketplace.json",
     "hooks/hooks.json",
     "scripts/classify_change.py",
     "skills/maintain-codebase/SKILL.md",
@@ -54,9 +55,15 @@ def check_package(root: Path) -> list[str]:
             errors.append(f"missing required file: {relative}")
 
     manifest_path = root / ".claude-plugin/plugin.json"
+    marketplace_path = root / ".claude-plugin/marketplace.json"
     hooks_path = root / "hooks/hooks.json"
+    parsed_json: dict[str, object] = {}
 
-    for label, path in (("plugin manifest", manifest_path), ("hooks", hooks_path)):
+    for label, path in (
+        ("plugin manifest", manifest_path),
+        ("marketplace", marketplace_path),
+        ("hooks", hooks_path),
+    ):
         if not path.is_file():
             continue
         try:
@@ -64,8 +71,11 @@ def check_package(root: Path) -> list[str]:
         except (UnicodeDecodeError, json.JSONDecodeError) as error:
             errors.append(f"invalid {label} JSON: {error}")
             continue
+        parsed_json[label] = parsed
         if label == "plugin manifest" and parsed.get("name") != "codebase-care":
             errors.append("plugin manifest name must be codebase-care")
+        if label == "marketplace" and parsed.get("name") != "resonatingloop":
+            errors.append("marketplace name must be resonatingloop")
         if label == "hooks":
             session_start = parsed.get("hooks", {}).get("SessionStart")
             if not session_start:
@@ -81,6 +91,24 @@ def check_package(root: Path) -> list[str]:
                 errors.append("SessionStart must emit static context with a shell-neutral echo")
             if "python" in command.casefold() or "CLAUDE_PLUGIN_ROOT" in command:
                 errors.append("SessionStart context must not depend on an interpreter or path")
+
+    manifest = parsed_json.get("plugin manifest")
+    marketplace = parsed_json.get("marketplace")
+    if isinstance(manifest, dict) and isinstance(marketplace, dict):
+        plugins = marketplace.get("plugins")
+        entry = plugins[0] if isinstance(plugins, list) and len(plugins) == 1 else None
+        if not isinstance(entry, dict) or entry.get("name") != "codebase-care":
+            errors.append("marketplace must contain exactly one codebase-care plugin")
+        else:
+            source = entry.get("source")
+            expected_source = {
+                "source": "github",
+                "repo": "resonatingloop/codebase-care",
+            }
+            if source != expected_source:
+                errors.append("marketplace plugin source must be resonatingloop/codebase-care")
+            if entry.get("version") != manifest.get("version"):
+                errors.append("marketplace and plugin versions must match")
 
     skill_path = root / "skills/maintain-codebase/SKILL.md"
     if skill_path.is_file():

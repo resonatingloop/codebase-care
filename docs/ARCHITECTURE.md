@@ -22,6 +22,7 @@ Claude Code session
 | Component | Path | Responsibility |
 |---|---|---|
 | Plugin manifest | `.claude-plugin/plugin.json` | identity and Claude component paths |
+| Marketplace catalog | `.claude-plugin/marketplace.json` | VS Code and Claude Code installation from the GitHub repository |
 | Automatic context hook | `hooks/hooks.json` | emit a static, shell-neutral reminder to enter the lifecycle without user prompting |
 | Skill router | `skills/maintain-codebase/SKILL.md` | authorization, operation selection, risk escalation, finish contract |
 | Detailed procedures | `skills/maintain-codebase/references/` | lifecycle, risk, baseline, red work, and verification |

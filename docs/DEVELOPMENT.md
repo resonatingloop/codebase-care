@@ -52,7 +52,18 @@ python3 scripts/classify_change.py --paths supabase/migrations/001_auth.sql
 
 ## Test interactively
 
-From the parent directory:
+### VS Code marketplace path
+
+After the target revision is available on GitHub:
+
+1. Open the Claude Code panel in a disposable VS Code project.
+2. Type `/plugins` and add `resonatingloop/codebase-care` under Marketplaces.
+3. Install Codebase Care locally or for the test user.
+4. Reload plugins and run the orientation smoke test from `docs/USER_GUIDE.md`.
+
+### Local clone path
+
+From the clone's parent directory:
 
 Windows Command Prompt:
 
@@ -79,6 +90,8 @@ Before the next public release:
 
 1. Obtain an explicit license decision.
 2. Run all validation and private-content review.
-3. Forward-test on native Windows and a POSIX system against fresh disposable
-   repositories without leaking expected answers into the prompts.
-4. Confirm the intended branch and GitHub remote before pushing it.
+3. Forward-test the VS Code marketplace install and reload path on native
+   Windows.
+4. Forward-test behavior on native Windows and a POSIX system against fresh
+   disposable repositories without leaking expected answers into the prompts.
+5. Confirm the intended branch and GitHub remote before pushing it.

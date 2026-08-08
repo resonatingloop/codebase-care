@@ -3,16 +3,16 @@
 > **Status:** experimental V1
 > **Audience:** maintainers using Claude Code to work on an existing project
 
-This guide is the shortest safe path from downloading Codebase Care to using
-it for ordinary maintenance, a baseline review, or a security audit. You do
-not need to write a plan before every request or remember separate prompts for
-testing and documentation. Codebase Care routes those concerns after it is
-loaded.
+This guide is the shortest safe path from installing Codebase Care in VS Code
+to using it for ordinary maintenance, a baseline review, or a security audit.
+You do not need to write a plan before every request or remember separate
+prompts for testing and documentation. Codebase Care routes those concerns
+after it is loaded.
 
-Windows Command Prompt is the primary shell in this guide. Commands labeled
-**Windows CMD** go into the `C:\...>` window before Claude starts. Blocks that
-begin with `/codebase-care:maintain-codebase` go into Claude after its welcome
-screen appears. macOS and Linux alternatives are provided separately.
+The Claude Code extension in VS Code is the primary interface in this guide.
+Anything beginning with `/plugin`, `/plugins`, `/reload-plugins`, or
+`/codebase-care:maintain-codebase` goes into the Claude prompt box inside VS
+Code. No Command Prompt window is required for ordinary installation or use.
 
 Codebase Care does not make every proposed change safe. Keep Claude Code's
 normal permission prompts enabled, read commands before approving them, and
@@ -23,111 +23,71 @@ operations under human control.
 
 You need:
 
-- Claude Code installed and signed in;
-- Git, with Git for Windows recommended on native Windows;
+- VS Code 1.98 or newer;
+- the Claude Code extension installed and signed in;
+- the target project's folder opened in VS Code;
+- Git for the target project, strongly recommended;
 - optionally, Python 3.10 or newer for the advisory classifier and package
-  checks;
-- a local copy of Codebase Care; and
-- a local copy of the project you want Claude to inspect or change.
+  checks.
 
-The startup hook itself does not require Python. Anthropic supports native
-Windows Command Prompt and recommends Git for Windows so Claude has a Bash
-tool; see the official [Claude Code installation guide](https://code.claude.com/docs/en/installation).
+You do not need to clone Codebase Care to use it. The VS Code extension installs
+its own cached copy. If you already cloned the repository, you may keep it for
+inspection or development, but opening that clone does not install the plugin.
+
+The startup hook itself does not require Python. See Anthropic's official
+[Claude Code VS Code guide](https://code.claude.com/docs/en/ide-integrations)
+for extension requirements and interface basics.
 
 Using Git for the target project is strongly recommended. Before a change,
 `git status --short --branch` gives you a visible starting point and makes it
 much easier to distinguish your existing work from Claude's edits. Do not ask
 Claude to erase a dirty working tree just to make the status clean.
 
-## 1. Get Codebase Care
+## 1. Open the project you actually want Claude to work on
 
-You only need to clone Codebase Care. Fork it if you intend to develop or
-publish your own version.
+1. In VS Code, select **File → Open Folder**.
+2. Choose the root folder of the application or website being maintained.
+3. Check the Explorer sidebar. It should show that project, not the cloned
+   `codebase-care` repository.
+4. Open Claude Code using the Spark icon in the editor toolbar or Activity Bar.
 
-1. Open the [Codebase Care repository on GitHub](https://github.com/resonatingloop/codebase-care).
-2. Select **Code**, select **HTTPS**, and copy the repository address.
-3. Open Command Prompt in the directory where you keep development tools.
-4. Type `git clone `, including the space, paste the copied address, and press
-   Enter.
-5. Enter the new directory.
+Each Claude conversation uses the folder or workspace currently open in VS
+Code. Opening the wrong folder means Claude will inspect the wrong repository.
+If the target project does not use Git, tell Claude and make a backup before
+authorizing edits.
 
-### Windows CMD
+Keep Claude Code's ordinary permission checks enabled. Leave automatic edit
+acceptance off until you are comfortable reviewing its diffs.
 
-```text
-git clone https://github.com/resonatingloop/codebase-care.git
-cd /d codebase-care
-cd
-```
+## 2. Install Codebase Care inside the Claude panel
 
-The last `cd` prints the complete directory path. Save it for the next section.
-
-Validate the clone:
-
-```text
-claude plugin validate .
-py -3 --version
-py -3 scripts\check_package.py .
-```
-
-If Windows says `py` is not recognized, try these instead:
-
-```text
-python --version
-python scripts\check_package.py .
-```
-
-Python should report version 3.10 or newer. Both Codebase Care checks should
-finish without errors.
-
-### macOS or Linux
-
-```text
-git clone https://github.com/resonatingloop/codebase-care.git
-cd codebase-care
-pwd
-claude plugin validate .
-python3 --version
-python3 scripts/check_package.py .
-```
-
-Python should report version 3.10 or newer. Both Codebase Care checks should
-finish without errors.
-
-## 2. Start Claude inside the project you want to work on
-
-This distinction matters: Codebase Care lives in its own folder, but Claude
-must start inside the project being inspected.
-
-### Windows CMD
-
-1. Open Command Prompt.
-2. Replace both example paths below with the real paths to the target project
-   and Codebase Care. Keep the quotation marks when a path contains spaces.
-3. Enter the target project, inspect its starting state, and launch Claude:
+1. Type `/plugins` in the Claude prompt box and press Enter.
+2. Open the **Marketplaces** tab.
+3. Add this GitHub repository as a marketplace:
 
    ```text
-   cd /d "C:\replace\with\target-project"
-   git status --short --branch
-   claude --plugin-dir "C:\replace\with\codebase-care"
+   resonatingloop/codebase-care
    ```
 
-### macOS or Linux
+4. Return to the **Plugins** tab and search for **Codebase Care**.
+5. Select **Install for you**. This makes it available in all of your projects
+   without adding plugin settings to the target repository.
+6. When prompted, restart Claude Code. You can instead type:
+
+   ```text
+   /reload-plugins
+   ```
+
+If the graphical marketplace flow is unavailable, enter these commands one at
+a time in the Claude prompt box:
 
 ```text
-cd "/path/to/target-project"
-git status --short --branch
-claude --plugin-dir "/path/to/codebase-care"
+/plugin marketplace add resonatingloop/codebase-care
+/plugin install codebase-care@resonatingloop
+/reload-plugins
 ```
 
-If the project does not use Git, say so when you prompt Claude and make a
-backup before authorizing edits.
-
-Keep Claude Code's ordinary permission checks enabled. Do not add
-`--dangerously-skip-permissions`.
-
-The `--plugin-dir` option loads Codebase Care for this Claude session only. Use
-the same option each time you start a new session until a permanent install
-method is distributed.
+These are Claude slash commands, not Windows shell commands.
 
 ## 3. Confirm the plugin loaded
 
@@ -212,20 +172,8 @@ containment, credential handling, affected services, and financial systems.
 
 Do not continue directly from “audit everything” to “fix everything.” Review
 the audit, choose one finding, and start a new Claude operation. A fresh session
-is the easiest boundary. From the target project, start Claude again with the
-same platform-specific command.
-
-**Windows CMD:**
-
-```text
-claude --plugin-dir "C:\replace\with\codebase-care"
-```
-
-**macOS or Linux:**
-
-```text
-claude --plugin-dir "/path/to/codebase-care"
-```
+is the easiest boundary. In the Claude Code Activity Bar, start a new
+conversation while the same target project remains open.
 
 Then paste the exact finding into this template:
 
@@ -257,49 +205,38 @@ credential rotation, or movement of funds on your behalf.
 
 ## 9. Update Codebase Care
 
-If you cloned Codebase Care with Git, update it from its own directory, not
-from the target project.
+1. Type `/plugins` in the Claude prompt box.
+2. Open **Marketplaces** and refresh the `resonatingloop` marketplace.
+3. Return to **Plugins**. If Codebase Care shows an update, install it.
+4. Type `/reload-plugins` or restart Claude Code.
 
-**Windows CMD:**
-
-```text
-cd /d "C:\replace\with\codebase-care"
-git status --short --branch
-git pull --ff-only
-claude plugin validate .
-py -3 scripts\check_package.py .
-```
-
-**macOS or Linux:**
-
-```text
-cd "/path/to/codebase-care"
-git status --short --branch
-git pull --ff-only
-claude plugin validate .
-python3 scripts/check_package.py .
-```
-
-If the first command shows local edits, stop and understand them before
-pulling. Restart Claude with `--plugin-dir` after a successful update so the new
-plugin files are loaded.
+Pulling a separate Git clone does not update the extension's installed copy.
+Marketplace plugins are cached separately by Claude Code.
 
 ## Troubleshooting
 
 ### Claude says the skill is unknown
 
-End the session, confirm the Codebase Care path, and restart Claude from the
-target project with `claude --plugin-dir "C:\replace\with\codebase-care"` on
-Windows CMD or `claude --plugin-dir "/path/to/codebase-care"` on macOS/Linux.
-Then run `claude plugin validate .` inside the Codebase Care directory if the
-problem continues.
+Type `/plugins`, confirm that `codebase-care@resonatingloop` appears under
+installed plugins and is enabled, then type `/reload-plugins`. Start a new
+conversation after reloading.
 
-### Windows reports that `py` is not recognized
+### Codebase Care does not appear in the plugin list
 
-Try `python --version`. If that also fails, install Python 3.10 or newer and
-open a new Command Prompt. Claude can still receive the automatic startup
-instruction without Python, but it cannot run Codebase Care's deterministic
-classifier or package checker.
+Open `/plugins`, switch to **Marketplaces**, confirm that
+`resonatingloop/codebase-care` is present, and use its refresh control. If it
+is absent, add it again and reload plugins.
+
+### You cloned the repository but Claude cannot see the skill
+
+A clone is source code, not an installed VS Code plugin. Install it through
+`/plugins`; you may delete or keep the clone independently.
+
+### Claude reports that Python is unavailable
+
+The automatic lifecycle still works. Claude should report the deterministic
+classifier as unavailable rather than treating it as proof. Install Python
+3.10 or newer only if you want that advisory check.
 
 ### Claude starts editing during a baseline or audit
 
@@ -323,3 +260,22 @@ or model confidence as a substitute for a behavior-specific check.
 Do not approve it until Claude explains what the command reads or changes, why
 it is needed, and how the result will be checked. You can always say no and ask
 for a narrower operation.
+
+## Maintainer and local-development appendix
+
+Cloning is useful when changing Codebase Care itself or testing an unpublished
+version. From the parent directory, load the clone for one terminal session:
+
+**Windows CMD:**
+
+```text
+claude --plugin-dir .\codebase-care
+```
+
+**macOS or Linux:**
+
+```text
+claude --plugin-dir ./codebase-care
+```
+
+This appendix is not required for ordinary VS Code installation.
