@@ -19,13 +19,15 @@ Observed validation:
 python3 -m unittest discover -s tests -v
 python3 scripts/check_package.py .
 claude plugin validate .
+CLAUDE_CONFIG_DIR=<temporary-directory> claude plugin install codebase-care@resonatingloop
 python3 <skill-creator>/scripts/quick_validate.py skills/maintain-codebase
 ```
 
 Results:
 
-- Ten unit tests passed, including collection and classification of a real
-  temporary Git diff.
+- Twelve unit tests passed, including collection and classification of a real
+  temporary Git diff and rejection of both redundant self-cloning and duplicate
+  auto-discovered hook declarations.
 - The package checker reported zero errors.
 - Claude Code plugin validation passed without warnings.
 - The skill validator reported `Skill is valid!`.
@@ -34,9 +36,16 @@ Results:
 - The SessionStart hook contains only the intended static, non-mutating entry
   instruction and has no interpreter or plugin-path dependency.
 - The marketplace and plugin manifests validate together and declare matching
-  version `0.2.1` metadata.
+  version `0.2.2` metadata.
+- The marketplace entry uses the fetched repository root as its plugin source,
+  avoiding a redundant second GitHub clone during installation.
+- The manifest leaves the standard `hooks/hooks.json` path to Claude's automatic
+  discovery, avoiding a duplicate-hook load failure.
 - The owner observed successful marketplace discovery and installation in the
   Claude Code VS Code extension on Windows.
+- A clean isolated Claude configuration added the local marketplace, installed
+  version 0.2.2 at user scope, and reported the plugin enabled with one skill
+  and one SessionStart hook.
 
 ## Working now
 
@@ -73,7 +82,8 @@ Results:
 
 ## Next useful action
 
-After version 0.2.1 is pushed, open a local Claude Desktop Code session on
+After version 0.2.2 is pushed, refresh the `resonatingloop` marketplace and
+retry installation in a local Claude Desktop Code session on
 Windows in a disposable repository. Check **+ → Plugins → Manage plugins**, use
 **Add plugin** if needed, and run the orientation smoke test. If the
 `resonatingloop` marketplace is not visible, register it once through the

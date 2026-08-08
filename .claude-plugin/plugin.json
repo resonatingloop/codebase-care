@@ -1,7 +1,7 @@
 {
   "name": "codebase-care",
   "displayName": "Codebase Care",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Automatically orient, risk-route, verify, and explain changes to existing codebases.",
   "author": {
     "name": "resonatingloop"
@@ -13,6 +13,5 @@
     "verification",
     "vibecoding"
   ],
-  "skills": "./skills/",
-  "hooks": "./hooks/hooks.json"
+  "skills": "./skills/"
 }

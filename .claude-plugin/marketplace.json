@@ -7,12 +7,9 @@
   "plugins": [
     {
       "name": "codebase-care",
-      "source": {
-        "source": "github",
-        "repo": "resonatingloop/codebase-care"
-      },
+      "source": "./",
       "description": "Automatically orient, risk-route, verify, and explain changes to existing codebases.",
-      "version": "0.2.1"
+      "version": "0.2.2"
     }
   ]
 }

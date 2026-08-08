@@ -74,6 +74,10 @@ def check_package(root: Path) -> list[str]:
         parsed_json[label] = parsed
         if label == "plugin manifest" and parsed.get("name") != "codebase-care":
             errors.append("plugin manifest name must be codebase-care")
+        if label == "plugin manifest" and "hooks" in parsed:
+            errors.append(
+                "plugin manifest must not redeclare auto-discovered hooks/hooks.json"
+            )
         if label == "marketplace" and parsed.get("name") != "resonatingloop":
             errors.append("marketplace name must be resonatingloop")
         if label == "hooks":
@@ -101,12 +105,10 @@ def check_package(root: Path) -> list[str]:
             errors.append("marketplace must contain exactly one codebase-care plugin")
         else:
             source = entry.get("source")
-            expected_source = {
-                "source": "github",
-                "repo": "resonatingloop/codebase-care",
-            }
-            if source != expected_source:
-                errors.append("marketplace plugin source must be resonatingloop/codebase-care")
+            if source != "./":
+                errors.append(
+                    "marketplace plugin source must reuse the marketplace root with './'"
+                )
             if entry.get("version") != manifest.get("version"):
                 errors.append("marketplace and plugin versions must match")
 

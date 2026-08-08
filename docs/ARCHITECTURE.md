@@ -21,8 +21,8 @@ Claude Code session
 
 | Component | Path | Responsibility |
 |---|---|---|
-| Plugin manifest | `.claude-plugin/plugin.json` | identity and Claude component paths |
-| Marketplace catalog | `.claude-plugin/marketplace.json` | installation through Claude Code's CLI, Desktop, and editor plugin managers |
+| Plugin manifest | `.claude-plugin/plugin.json` | identity and non-default Claude component paths; auto-discovered hooks are not redeclared |
+| Marketplace catalog | `.claude-plugin/marketplace.json` | installation through Claude Code's CLI, Desktop, and editor plugin managers; its `./` source reuses the fetched marketplace checkout |
 | Automatic context hook | `hooks/hooks.json` | emit a static, shell-neutral reminder to enter the lifecycle without user prompting |
 | Skill router | `skills/maintain-codebase/SKILL.md` | authorization, operation selection, risk escalation, finish contract |
 | Detailed procedures | `skills/maintain-codebase/references/` | lifecycle, risk, baseline, red work, and verification |
