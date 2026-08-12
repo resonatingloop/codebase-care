@@ -17,6 +17,7 @@ A failing implementation is not authorization to weaken these contracts.
 | `CC-008` | Model identity or tier may affect capability but never replaces risk controls or proof. | skill review |
 | `CC-009` | Automatic startup context is minimal, non-mutating, and grants no tool permission. | hook test and direct review |
 | `CC-010` | Public package material contains no private repository content, credentials, audit reports, or personalized rules. | publication review |
+| `CC-011` | Claude Code and Codex adapters load one shared skill and lifecycle; host packaging cannot create a weaker or divergent maintenance route. | package tests and manifest review |
 
 ## Decision rights
 
@@ -34,4 +35,3 @@ The classifier identifies path and diff signals. It does not establish
 exploitability, correctness, effective database policy, deployed state, or
 absence of vulnerabilities. Project tests and qualified review own those
 semantic claims.
-

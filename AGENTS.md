@@ -25,7 +25,8 @@ surface the conflict. Do not quietly make the prose agree with an implementation
 
 ## Boundaries
 
-- This repository owns reusable, project-agnostic Claude Code infrastructure.
+- This repository owns reusable, project-agnostic coding-agent infrastructure
+  for Claude Code and Codex.
 - Project-specific findings, reports, credentials, private code, and filled
   inventories remain in the project that produced them.
 - `skills/maintain-codebase/SKILL.md` owns runtime routing.
@@ -48,6 +49,8 @@ python3 -m unittest discover -s tests -v
 python3 scripts/classify_change.py --paths README.md styles/site.css
 python3 scripts/check_package.py .
 claude plugin validate .
+codex plugin marketplace add . --json
+codex plugin add codebase-care@resonatingloop --json
 ```
 
 On native Windows, use `py -3` in place of `python3` and Windows path
@@ -62,7 +65,8 @@ initialized.
 2. Keep the automatic instruction short; route detail into direct references.
 3. Test deterministic scripts against sanitized fixtures.
 4. Keep audit and remediation separate for red-risk work.
-5. Reconcile skill behavior, scripts, hooks, tests, contracts, and public docs.
+5. Keep host adapters thin and reconcile shared skill behavior, scripts, hooks,
+   tests, contracts, and public docs.
 6. Update `STATUS.md` only from observed validation results.
 
 ## Stop and ask

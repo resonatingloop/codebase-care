@@ -14,6 +14,8 @@ from typing import Sequence
 REQUIRED_FILES = (
     ".claude-plugin/plugin.json",
     ".claude-plugin/marketplace.json",
+    ".codex-plugin/plugin.json",
+    ".agents/plugins/marketplace.json",
     "hooks/hooks.json",
     "scripts/classify_change.py",
     "skills/maintain-codebase/SKILL.md",
@@ -56,12 +58,16 @@ def check_package(root: Path) -> list[str]:
 
     manifest_path = root / ".claude-plugin/plugin.json"
     marketplace_path = root / ".claude-plugin/marketplace.json"
+    codex_manifest_path = root / ".codex-plugin/plugin.json"
+    codex_marketplace_path = root / ".agents/plugins/marketplace.json"
     hooks_path = root / "hooks/hooks.json"
     parsed_json: dict[str, object] = {}
 
     for label, path in (
         ("plugin manifest", manifest_path),
         ("marketplace", marketplace_path),
+        ("Codex plugin manifest", codex_manifest_path),
+        ("Codex marketplace", codex_marketplace_path),
         ("hooks", hooks_path),
     ):
         if not path.is_file():
@@ -72,14 +78,20 @@ def check_package(root: Path) -> list[str]:
             errors.append(f"invalid {label} JSON: {error}")
             continue
         parsed_json[label] = parsed
-        if label == "plugin manifest" and parsed.get("name") != "codebase-care":
-            errors.append("plugin manifest name must be codebase-care")
+        if label in {"plugin manifest", "Codex plugin manifest"} and parsed.get("name") != "codebase-care":
+            errors.append(f"{label} name must be codebase-care")
+        if label in {"plugin manifest", "Codex plugin manifest"} and parsed.get("skills") != "./skills/":
+            errors.append(f"{label} must load the shared ./skills/ directory")
         if label == "plugin manifest" and "hooks" in parsed:
             errors.append(
                 "plugin manifest must not redeclare auto-discovered hooks/hooks.json"
             )
-        if label == "marketplace" and parsed.get("name") != "resonatingloop":
-            errors.append("marketplace name must be resonatingloop")
+        if label == "Codex plugin manifest" and "hooks" in parsed:
+            errors.append(
+                "Codex plugin manifest must not redeclare auto-discovered hooks/hooks.json"
+            )
+        if label in {"marketplace", "Codex marketplace"} and parsed.get("name") != "resonatingloop":
+            errors.append(f"{label} name must be resonatingloop")
         if label == "hooks":
             session_start = parsed.get("hooks", {}).get("SessionStart")
             if not session_start:
@@ -98,6 +110,8 @@ def check_package(root: Path) -> list[str]:
 
     manifest = parsed_json.get("plugin manifest")
     marketplace = parsed_json.get("marketplace")
+    codex_manifest = parsed_json.get("Codex plugin manifest")
+    codex_marketplace = parsed_json.get("Codex marketplace")
     if isinstance(manifest, dict) and isinstance(marketplace, dict):
         plugins = marketplace.get("plugins")
         entry = plugins[0] if isinstance(plugins, list) and len(plugins) == 1 else None
@@ -111,6 +125,30 @@ def check_package(root: Path) -> list[str]:
                 )
             if entry.get("version") != manifest.get("version"):
                 errors.append("marketplace and plugin versions must match")
+
+    if isinstance(manifest, dict) and isinstance(codex_manifest, dict):
+        if manifest.get("version") != codex_manifest.get("version"):
+            errors.append("Claude and Codex plugin versions must match")
+
+    if isinstance(codex_marketplace, dict):
+        plugins = codex_marketplace.get("plugins")
+        entry = plugins[0] if isinstance(plugins, list) and len(plugins) == 1 else None
+        if not isinstance(entry, dict) or entry.get("name") != "codebase-care":
+            errors.append("Codex marketplace must contain exactly one codebase-care plugin")
+        else:
+            expected_source = {"source": "local", "path": "./"}
+            if entry.get("source") != expected_source:
+                errors.append(
+                    "Codex marketplace plugin source must reuse the marketplace root with './'"
+                )
+            expected_policy = {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL",
+            }
+            if entry.get("policy") != expected_policy:
+                errors.append("Codex marketplace plugin policy must be explicit")
+            if entry.get("category") != "Developer Tools":
+                errors.append("Codex marketplace plugin category must be Developer Tools")
 
     skill_path = root / "skills/maintain-codebase/SKILL.md"
     if skill_path.is_file():

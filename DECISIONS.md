@@ -62,3 +62,14 @@ terminal Claude Code fallback for registering the third-party marketplace.
 Retain VS Code as a supported and owner-tested alternative rather than treating
 it as the product boundary. Keep the distribution itself interface-neutral so
 the same plugin package can load in Desktop, the terminal CLI, or VS Code.
+
+## D-007 — Add Codex as a thin host adapter
+
+- Date: 2026-08-08
+- Status: accepted
+
+Support owner evaluation in Codex CLI without creating a second maintenance
+workflow. Add Codex-native manifest and marketplace metadata around the same
+`maintain-codebase` skill, progressive references, deterministic classifier,
+and default SessionStart hook. Keep Claude Desktop as the primary friend-facing
+path; Codex is an equally supported runtime for maintainers and evaluation.

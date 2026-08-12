@@ -7,6 +7,7 @@
 
 - Python 3.10 or newer for deterministic scripts and tests.
 - Claude Code with plugin validation support.
+- Codex CLI with plugin support.
 
 The SessionStart hook has no language-runtime dependency. Python is needed only
 for deterministic scripts and their tests; no third-party Python package is
@@ -22,6 +23,8 @@ Windows Command Prompt:
 py -3 -m unittest discover -s tests -v
 py -3 scripts\check_package.py .
 claude plugin validate .
+codex plugin marketplace add .
+codex plugin add codebase-care@resonatingloop
 ```
 
 macOS or Linux:
@@ -30,6 +33,8 @@ macOS or Linux:
 python3 -m unittest discover -s tests -v
 python3 scripts/check_package.py .
 claude plugin validate .
+codex plugin marketplace add .
+codex plugin add codebase-care@resonatingloop
 ```
 
 Exercise representative classifier paths:
@@ -95,6 +100,24 @@ floor, runs appropriate proof, and does not manufacture a documentation system.
 For red-work testing, use sanitized synthetic fixtures. Never point a test at a
 live service or include real credentials.
 
+### Codex CLI path
+
+From the repository root, `codex plugin marketplace add .` registers this clone
+as the `resonatingloop` marketplace. Install it with
+`codex plugin add codebase-care@resonatingloop`, then confirm version and status
+with `codex plugin list --json`.
+
+Start a new Codex CLI session in a disposable target repository. Use `/hooks`
+to inspect and trust the exact static SessionStart hook, then invoke
+`$codebase-care:maintain-codebase` for the orientation smoke test in the user
+guide. A non-interactive test may use `--dangerously-bypass-hook-trust` only
+after independently reviewing the hook, and should use an ephemeral session and
+a read-only sandbox.
+
+Codex does not expose a `codex plugin validate` command. The package checker,
+unit tests, real marketplace installation, and a fresh-session skill probe are
+the validation path. The Codex IDE extension does not currently load plugins.
+
 ## Next release gate
 
 Before the next public release:
@@ -105,4 +128,6 @@ Before the next public release:
    path in a local Code session on native Windows.
 4. Forward-test behavior on native Windows and a POSIX system against fresh
    disposable repositories without leaking expected answers into the prompts.
-5. Confirm the intended branch and GitHub remote before pushing it.
+5. Forward-test Codex hook trust and automatic invocation in an ordinary fresh
+   CLI session.
+6. Confirm the intended branch and GitHub remote before pushing it.

@@ -1,7 +1,7 @@
 # Codebase Care user guide
 
 > **Status:** experimental V1
-> **Audience:** maintainers using Claude Code to work on an existing project
+> **Audience:** maintainers using Claude Code, plus Codex CLI evaluators
 
 This guide is the shortest safe path from installing Codebase Care to using it
 for ordinary maintenance, a baseline review, or a security audit. You do not
@@ -305,3 +305,36 @@ claude --plugin-dir ./codebase-care
 ```
 
 This appendix is not required for ordinary marketplace installation.
+
+## Codex CLI evaluation appendix
+
+This is the maintainer/evaluator path. The friend-facing instructions above
+remain Claude Desktop-first, but Codex runs the same skill and lifecycle.
+
+From the Codebase Care clone, run these as terminal commands:
+
+```text
+codex plugin marketplace add .
+codex plugin add codebase-care@resonatingloop
+codex plugin list --json
+```
+
+Then open a new terminal in the target repository and run `codex`. Inside the
+new Codex session:
+
+1. Enter `/plugins` and confirm `codebase-care@resonatingloop` is enabled.
+2. Enter `/hooks`, inspect the static Codebase Care SessionStart command, and
+   trust it only if it matches the installed source.
+3. Run this smoke test:
+
+```text
+$codebase-care:maintain-codebase Orient to this repository without changing anything. Tell me the repository root, its current Git state, the instructions you found, and the initial risk floor. Stop after the orientation.
+```
+
+For the longer prompts in this guide, replace the Claude prefix
+`/codebase-care:maintain-codebase` with the Codex skill prefix
+`$codebase-care:maintain-codebase`; the rest of each prompt is unchanged.
+
+Installing or updating a plugin does not retrofit it into the current Codex
+conversation, so start a new session. Codex plugins currently load in the CLI,
+not the IDE extension.

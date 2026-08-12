@@ -1,0 +1,35 @@
+{
+  "name": "codebase-care",
+  "version": "0.3.0",
+  "description": "Automatically orient, risk-route, verify, and explain changes to existing codebases.",
+  "author": {
+    "name": "resonatingloop"
+  },
+  "homepage": "https://github.com/resonatingloop/codebase-care",
+  "repository": "https://github.com/resonatingloop/codebase-care",
+  "keywords": [
+    "maintenance",
+    "code-review",
+    "security",
+    "verification",
+    "vibecoding"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Codebase Care",
+    "shortDescription": "Safer maintenance for existing repositories",
+    "longDescription": "Orient to an existing repository, route work by risk, verify behavior with project-owned proof, and explain evidence and uncertainty.",
+    "developerName": "resonatingloop",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/resonatingloop/codebase-care",
+    "defaultPrompt": [
+      "Orient to this repository and report its current state and initial risk floor without changing anything.",
+      "Run a read-only five-disposition baseline inventory of this repository."
+    ]
+  }
+}

@@ -5,14 +5,14 @@
 
 ## Purpose
 
-Codebase Care gives Claude Code an automatic maintenance discipline for
-existing repositories, especially where maintainers work primarily through
+Codebase Care gives Claude Code and Codex one automatic maintenance discipline
+for existing repositories, especially where maintainers work primarily through
 natural-language requests and cannot be expected to remember a suite of audit,
 planning, verification, and documentation prompts.
 
 ## Intended users
 
-- Maintainers building or repairing software through Claude Code.
+- Maintainers building or repairing software through Claude Code or Codex.
 - Capable readers who may not have deep implementation or security expertise.
 - Teams inheriting rapidly accreted, unfamiliar, or heavily AI-generated code.
 
@@ -35,7 +35,8 @@ planning, verification, and documentation prompts.
 - Generate an exhaustive documentation system or duplicate Repository
   Continuity.
 - Teach general programming from first principles.
-- Support agent products other than Claude Code in V1.
+- Support coding-agent products other than Claude Code and Codex in V1.
+- Maintain behaviorally divergent lifecycle forks for different hosts.
 
 ## Success
 
@@ -49,4 +50,3 @@ planning, verification, and documentation prompts.
   proof and cannot self-certify deployment readiness.
 - Final output remains short enough to be read while clearly naming proof and
   uncertainty.
-

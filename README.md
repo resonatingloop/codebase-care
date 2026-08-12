@@ -3,9 +3,9 @@
 > **Status:** experimental V1
 > **Role:** public front door
 
-Codebase Care is a Claude Code plugin for conversation-driven maintenance of
-existing software. It turns ordinary requests such as “add this,” “fix that,”
-or “remove this feature” into one automatic lifecycle:
+Codebase Care is a Claude Code and Codex plugin for conversation-driven
+maintenance of existing software. It turns ordinary requests such as “add
+this,” “fix that,” or “remove this feature” into one automatic lifecycle:
 
 ```text
 orient -> classify risk -> choose the bounded change -> implement
@@ -79,6 +79,30 @@ model-invocable, and a minimal SessionStart hook reminds Claude to enter the
 lifecycle automatically for repository-changing requests. See the user guide
 for the orientation smoke test and working prompts.
 
+## Evaluate in Codex CLI
+
+Codex uses the same `maintain-codebase` skill, lifecycle references, classifier,
+and SessionStart hook as Claude Code. From this repository root, register the
+local marketplace and install the current clone:
+
+```text
+codex plugin marketplace add .
+codex plugin add codebase-care@resonatingloop
+```
+
+Start a new Codex CLI session in the repository you want to inspect. Open
+`/hooks`, review the static Codebase Care startup instruction, and trust it if
+its contents match this repository. Then run the explicit smoke test once:
+
+```text
+$codebase-care:maintain-codebase Orient to this repository without changing anything. Tell me the repository root, its current Git state, the instructions you found, and the initial risk floor. Stop after the orientation.
+```
+
+Plugin installation and hook trust take effect in a new session. Codex plugins
+are currently supported in the CLI, not the Codex IDE extension. The
+[maintainer appendix](docs/USER_GUIDE.md#codex-cli-evaluation-appendix) gives the
+full local evaluation path.
+
 ## Try an unpublished clone locally
 
 From the clone's parent directory on Windows Command Prompt:
@@ -100,6 +124,8 @@ Prompt:
 claude plugin validate .
 py -3 -m unittest discover -s tests -v
 py -3 scripts\check_package.py .
+codex plugin marketplace add .
+codex plugin add codebase-care@resonatingloop
 ```
 
 On macOS or Linux:
@@ -108,6 +134,8 @@ On macOS or Linux:
 claude plugin validate .
 python3 -m unittest discover -s tests -v
 python3 scripts/check_package.py .
+codex plugin marketplace add .
+codex plugin add codebase-care@resonatingloop
 ```
 
 ## Risk lanes

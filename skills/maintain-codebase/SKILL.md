@@ -1,6 +1,6 @@
 ---
 name: maintain-codebase
-description: Automatically guide safe, legible work in an existing repository. Use whenever the user asks Claude to add, fix, change, remove, refactor, audit, or understand functionality; when inheriting or resuming unfamiliar or heavily AI-generated code; or when a request may affect behavior, data, dependencies, security, deployment, or operations. Orient first, classify green/amber/red risk, choose a bounded operation, verify with project-owned proof, and explain evidence and uncertainty without requiring separate user prompts.
+description: Automatically guide safe, legible work in an existing repository. Use whenever the user asks the coding agent to add, fix, change, remove, refactor, audit, or understand functionality; when inheriting or resuming unfamiliar or heavily AI-generated code; or when a request may affect behavior, data, dependencies, security, deployment, or operations. Orient first, classify green/amber/red risk, choose a bounded operation, verify with project-owned proof, and explain evidence and uncertainty without requiring separate user prompts.
 ---
 
 # Maintain Codebase
