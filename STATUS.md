@@ -2,7 +2,7 @@
 
 > **Role:** operational checkpoint
 > **Status:** current experimental V1
-> **Last verified:** 2026-08-08
+> **Last verified:** 2026-09-29
 
 ## Verified checkpoint
 
@@ -82,6 +82,8 @@ Results:
 - Terminal CLI registration and local loading retained as fallback and
   development paths; VS Code is retained as a tested alternative surface.
 - A public GitHub source repository tracking `origin/master`.
+- An MIT-licensed public package, including the shared skills and other package
+  material.
 
 ## Incomplete or unverified
 
@@ -96,19 +98,16 @@ Results:
   the package been tested through Codex CLI on native Windows.
 - Red routing has not been exercised against a sanitized end-to-end audit
   fixture.
-- No license has been selected.
 
 ## Explicitly excluded
 
-- License selection and project- or organization-managed installation.
+- Project- or organization-managed installation.
 - Any modification of the repositories that motivated this skill.
 
 ## Next useful action
 
 Open a new interactive Codex CLI session in the intended target repository,
 review and trust the exact Codebase Care hook through `/hooks`, and run the
-read-only baseline before authorizing any changes. After version `0.3.0` is
-committed and pushed, retain the pending Claude Desktop Windows checks and
-forward-test one ordinary change, one baseline audit, and one red audit against
-fresh disposable fixtures. Select a license before treating the GitHub
-repository as a finished public distribution.
+read-only baseline before authorizing any changes. Retain the pending Claude
+Desktop Windows checks and forward-test one ordinary change, one baseline
+audit, and one red audit against fresh disposable fixtures.

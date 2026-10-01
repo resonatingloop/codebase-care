@@ -172,5 +172,6 @@ tests. Audit reports and project-specific inventories stay with their source
 repositories.
 
 The source now has a Git repository and a public
-[GitHub remote](https://github.com/resonatingloop/codebase-care). No license has
-been selected; license terms remain an unresolved owner decision.
+[GitHub remote](https://github.com/resonatingloop/codebase-care). Codebase Care
+is available under the [MIT License](LICENSE), including its skills and other
+package material.

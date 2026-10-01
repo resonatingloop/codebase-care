@@ -73,3 +73,12 @@ workflow. Add Codex-native manifest and marketplace metadata around the same
 `maintain-codebase` skill, progressive references, deterministic classifier,
 and default SessionStart hook. Keep Claude Desktop as the primary friend-facing
 path; Codex is an equally supported runtime for maintainers and evaluation.
+
+## D-008 — Publish under the MIT License
+
+- Date: 2026-09-29
+- Status: accepted
+
+License Codebase Care, including its skills and other package material, under
+the MIT License so others may use, modify, and redistribute it with the
+license's notice and disclaimer preserved.

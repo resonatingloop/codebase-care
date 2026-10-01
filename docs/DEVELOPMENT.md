@@ -122,12 +122,11 @@ the validation path. The Codex IDE extension does not currently load plugins.
 
 Before the next public release:
 
-1. Obtain an explicit license decision.
-2. Run all validation and private-content review.
-3. Forward-test the Claude Desktop marketplace install and skill invocation
+1. Run all validation and private-content review.
+2. Forward-test the Claude Desktop marketplace install and skill invocation
    path in a local Code session on native Windows.
-4. Forward-test behavior on native Windows and a POSIX system against fresh
+3. Forward-test behavior on native Windows and a POSIX system against fresh
    disposable repositories without leaking expected answers into the prompts.
-5. Forward-test Codex hook trust and automatic invocation in an ordinary fresh
+4. Forward-test Codex hook trust and automatic invocation in an ordinary fresh
    CLI session.
-6. Confirm the intended branch and GitHub remote before pushing it.
+5. Confirm the intended branch and GitHub remote before pushing it.

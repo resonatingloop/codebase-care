@@ -12,6 +12,7 @@ from typing import Sequence
 
 
 REQUIRED_FILES = (
+    "LICENSE",
     ".claude-plugin/plugin.json",
     ".claude-plugin/marketplace.json",
     ".codex-plugin/plugin.json",
