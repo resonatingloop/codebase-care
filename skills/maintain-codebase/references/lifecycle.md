@@ -57,6 +57,8 @@ or red-risk transition not already authorized.
 
 Read `verification.md`. Compare the final diff with the request, run focused
 proof and the repository's required checks, and inspect the diff directly.
+Reclassify the realized change shape and risk floor rather than inheriting the
+opening classification by default.
 
 Update existing operational or normative documentation only when its owned
 truth changed. Do not create a work log. If no durable claim changed, say that
@@ -64,7 +66,14 @@ documentation was checked and did not require modification.
 
 ## 6. Close visibly
 
-Produce the concise handoff from `verification.md`. A cold maintainer should be
-able to identify what changed, what proves it, and what remains unsafe or
-unknown without reading the complete transcript.
+Before representing a material slice as terminal, read
+`actual-change-receipt.md` and reconstruct what actually emerged. Trigger this
+on the semantic claim, not a raw keyword match.
+
+Pass the receipt to the repository's continuity or formal close workflow when
+one exists. Otherwise include its material facts in the concise handoff from
+`verification.md` without claiming that repository truth has been promoted. A
+cold maintainer should be able to identify what changed, what proves it, what
+departed from the accepted transition, and what remains unsafe or unknown
+without reading the complete transcript.
 

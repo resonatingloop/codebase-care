@@ -9,7 +9,8 @@ this,” “fix that,” or “remove this feature” into one automatic lifecyc
 
 ```text
 orient -> classify risk -> choose the bounded change -> implement
-       -> verify behavior -> explain evidence and remaining uncertainty
+       -> verify behavior -> reconstruct actual consequence
+       -> explain evidence and remaining uncertainty
 ```
 
 The user does not need to remember separate prompts for planning, security,
@@ -21,7 +22,9 @@ Codebase Care is deliberately separate from Repository Continuity. Repository
 Continuity preserves durable project truth across sessions. Codebase Care owns
 the safety and legibility of changing functionality. It may consume existing
 project documentation, but it does not install a documentation system or write
-a work log by default.
+a work log by default. For a material terminal claim, Codebase Care can hand an
+actual-change receipt to an available continuity close without claiming the
+authority to promote or retire the slice itself.
 
 ## What it does
 
@@ -32,6 +35,8 @@ a work log by default.
   **retire**;
 - keeps red-risk audit and remediation as separate operations;
 - runs project-owned proof and an advisory deterministic change classifier;
+- reclassifies the realized diff and prepares an actual-change receipt before a
+  material terminal claim;
 - gives a short handoff that distinguishes evidence, inference, and unverified
   behavior.
 
