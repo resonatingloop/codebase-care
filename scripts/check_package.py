@@ -25,7 +25,6 @@ REQUIRED_FILES = (
     "skills/maintain-codebase/references/baseline.md",
     "skills/maintain-codebase/references/red-work.md",
     "skills/maintain-codebase/references/verification.md",
-    "skills/maintain-codebase/references/actual-change-receipt.md",
 )
 
 PLACEHOLDER_PATTERNS = (

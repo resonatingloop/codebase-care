@@ -18,7 +18,6 @@ A failing implementation is not authorization to weaken these contracts.
 | `CC-009` | Automatic startup context is minimal, non-mutating, and grants no tool permission. | hook test and direct review |
 | `CC-010` | Public package material contains no private repository content, credentials, audit reports, or personalized rules. | publication review |
 | `CC-011` | Claude Code and Codex adapters load one shared skill and lifecycle; host packaging cannot create a weaker or divergent maintenance route. | package tests and manifest review |
-| `CC-012` | Before a material terminal claim, Codebase Care reclassifies the realized change and produces an actual-change receipt; the receipt may inform a continuity close but cannot promote repository truth by itself. | lifecycle, verification, and receipt review |
 
 ## Decision rights
 

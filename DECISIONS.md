@@ -82,19 +82,3 @@ path; Codex is an equally supported runtime for maintainers and evaluation.
 License Codebase Care, including its skills and other package material, under
 the MIT License so others may use, modify, and redistribute it with the
 license's notice and disclaimer preserved.
-
-## D-009 — Hand actual consequence to continuity without owning promotion
-
-- Date: 2026-11-11
-- Status: accepted
-
-Codebase Care owns the safety and legibility of changing functionality, while
-Repository Continuity owns promotion into durable project truth. At the
-terminal boundary, Codebase Care therefore produces a transient actual-change
-receipt: realized scope, final risk, review dispositions, proof, departures,
-and durability. An available continuity close consumes that receipt and owns
-the close outcome.
-
-This remains a seam between the existing skills rather than a third skill.
-Codebase Care stays useful on its own, and the receipt never becomes a
-persistent work log or an authority to retire specs.

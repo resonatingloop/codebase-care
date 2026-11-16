@@ -34,7 +34,6 @@ Then load only the route required:
 | Inventory an unfamiliar or accreted repository | [references/baseline.md](references/baseline.md) |
 | Audit or fix security-sensitive work | [references/red-work.md](references/red-work.md) |
 | Select proof and write the final handoff | [references/verification.md](references/verification.md) |
-| Prepare a material terminal handoff | [references/actual-change-receipt.md](references/actual-change-receipt.md) |
 
 ## Use deterministic signals correctly
 
@@ -55,18 +54,12 @@ bounded surface, and any real decision needed before proceeding.
 
 At the end, report only:
 
-- what changed and the realized change shape;
+- what changed;
 - the consequential behavior or data path;
 - proof actually run and its result;
 - documentation or operational truth reconciled, if any;
-- departures and what remains unverified;
-- durability and a continuity close outcome, when one was supplied;
+- what remains unverified;
 - the next safe action, if one exists.
 
 Do not bury uncertainty in a long implementation narrative. Do not call work
 secure, complete, or verified beyond the evidence collected.
-
-Before making a material terminal claim, prepare the actual-change receipt and
-pass it to the repository's formal close workflow when one exists. The receipt
-describes what emerged; it does not itself promote that state into repository
-truth.

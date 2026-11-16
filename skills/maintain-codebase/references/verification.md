@@ -25,11 +25,6 @@ projection, delivery, and operational documentation where applicable.
 5. Reconcile existing documentation only when its owned truth changed.
 6. Never infer production state from repository files alone.
 
-For a material terminal claim, continue into
-[`actual-change-receipt.md`](actual-change-receipt.md). That receipt records the
-final change shape, adversarial review state, departures, and durability for a
-formal close workflow to consume. It is not a second implementation log.
-
 ## Concise handoff
 
 Use this shape and omit empty fields:
@@ -41,12 +36,9 @@ Behavior/data path:
 Verified:
 Documentation/operations:
 Unverified:
-Durability:
-Close outcome:
 Next safe action:
 ```
 
 Explain one consequential path in plain language. Do not narrate every command,
-repeat the plan, or replace evidence with confidence language. Include a close
-outcome only when the workflow that owns repository promotion supplied one.
+repeat the plan, or replace evidence with confidence language.
 
